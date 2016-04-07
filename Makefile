@@ -169,7 +169,7 @@ LIBRARIES += glog gflags protobuf leveldb snappy \
 	lmdb \
 	boost_system \
 	hdf5_hl hdf5 \
-	opencv_core opencv_highgui opencv_imgproc pthread
+	opencv_core opencv_highgui opencv_imgproc pthread opencv_imgcodecs
 PYTHON_LIBRARIES := boost_python python2.7
 WARNINGS := -Wall -Wno-sign-compare
 
@@ -290,7 +290,7 @@ ifeq ($(BLAS), mkl)
 	BLAS_LIB ?= $(MKL_DIR)/lib $(MKL_DIR)/lib/intel64
 else ifeq ($(BLAS), open)
 	# OpenBLAS
-	LIBRARIES += openblas
+	LIBRARIES += openblas_openmp
 else
 	# ATLAS
 	ifeq ($(LINUX), 1)

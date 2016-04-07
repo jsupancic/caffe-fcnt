@@ -1,14 +1,21 @@
 cmake_minimum_required(VERSION 2.8.8)
+set(CMAKE_C_COMPILER "/usr/bin/gcc-4.8.5")
+set(CMAKE_CXX_COMPILER "/usr/bin/g++-4.8.5")
+
 project( Caffe )
 
 ###    Build Options     ##########################################################################
 
 option(CPU_ONLY "Build Caffe without GPU support" OFF)
 option(BUILD_PYTHON "Build Python wrapper" OFF)
-option(BUILD_MATLAB "Build Matlab wrapper" OFF)
+option(BUILD_MATLAB "Build Matlab wrapper" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 option(BUILD_SHARED_LIBS "Build SHARED libs if ON and STATIC otherwise" OFF)
 
+#set(CXX, g++-4.8.5)
+#set(CMAKE_CXX_COMPILER, g++-4.8.5)
+
+set(BLAS open)
 if(NOT BLAS)
     set(BLAS atlas)
 endif()
@@ -50,6 +57,15 @@ if(NOT CPU_ONLY)
     find_package(CUDA 5.5 REQUIRED)
     include_directories(${CUDA_INCLUDE_DIRS})
 endif()
+
+find_package(OpenBLAS )
+include_directories(${OpenBLAS_INCLUDE_DIR})
+#set_directories(${OpenBLAS_LIB})
+set(BLAS_LIBRARIES ${OpenBLAS_LIB})
+
+#    OpenCV
+find_package(OpenCV REQUIRED core highgui imgproc imgcodecs)
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 ###    Subdirectories    ##########################################################################
 

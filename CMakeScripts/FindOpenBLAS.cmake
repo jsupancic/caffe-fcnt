@@ -1,7 +1,8 @@
-
+MESSAGE(Finding OpenBLAS)
 
 SET(Open_BLAS_INCLUDE_SEARCH_PATHS
   /usr/include
+  /usr/include/openblas
   /usr/include/openblas-base
   /usr/local/include
   /usr/local/include/openblas-base
@@ -27,7 +28,7 @@ SET(Open_BLAS_LIB_SEARCH_PATHS
  )
 
 FIND_PATH(OpenBLAS_INCLUDE_DIR NAMES cblas.h PATHS ${Open_BLAS_INCLUDE_SEARCH_PATHS})
-FIND_LIBRARY(OpenBLAS_LIB NAMES openblas PATHS ${Open_BLAS_LIB_SEARCH_PATHS})
+FIND_LIBRARY(OpenBLAS_LIB NAMES openblas_openmp openblas PATHS ${Open_BLAS_LIB_SEARCH_PATHS})
 
 SET(OpenBLAS_FOUND ON)
 
@@ -35,6 +36,8 @@ SET(OpenBLAS_FOUND ON)
 IF(NOT OpenBLAS_INCLUDE_DIR)
     SET(OpenBLAS_FOUND OFF)
     MESSAGE(STATUS "Could not find OpenBLAS include. Turning OpenBLAS_FOUND off")
+ELSE()
+     MESSAGE("OpenBLAS include = " ${OpenBLAS_INCLUDE_DIR})
 ENDIF()
 
 #    Check libraries

@@ -36,10 +36,6 @@ endif()
 find_package(HDF5 COMPONENTS HL REQUIRED)
 include_directories(${HDF5_INCLUDE_DIRS})
 
-#    OpenCV
-find_package(OpenCV REQUIRED core highgui imgproc)
-include_directories(${OpenCV_INCLUDE_DIRS})
-
 #    LevelDB
 find_package(LevelDB REQUIRED)
 include_directories(${LEVELDB_INCLUDE})
